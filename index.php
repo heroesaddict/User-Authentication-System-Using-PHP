@@ -7,7 +7,7 @@
 <body>
 
 <h2>User Authentication System Using PHP</h2><hr>
-<h3>Homepage</h3><hr>
+<h3>My Homepage</h3><hr>
 
 <?php include_once 'resource/Database.php' ?>
 
