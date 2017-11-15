@@ -1,3 +1,11 @@
+<?php 
+
+include_once 'resource/session.php';
+include_once 'resource/Database.php';
+
+ ?>
+
+
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -13,7 +21,7 @@
 	<table>
 		<tr><td>Username:</td><td><input type="text" value=""></input></td></tr>
 		<tr><td>Password:</td><td><input type="password" value=""></input></td></tr>
-		<tr><td></td><td><input style="float:right;" type="submit" value="Signin"></input></td></tr>
+		<tr><td></td><td><input style="float:right;" type="submit" name="loginBtn" value="Signin"></input></td></tr>
 	</table>
 </form>
 

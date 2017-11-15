@@ -1,6 +1,11 @@
 <?php
+
+
 //add our database connection script
 include_once 'resource/Database.php';
+
+include_once 'resource/utilities.php';
+
 
 //process the form
 if(isset($_POST['signupBtn'])) {
@@ -12,15 +17,18 @@ if(isset($_POST['signupBtn'])) {
 	//form validation / whitelisting
 	$required_fields = array('email', 'username', 'password');
 
-	//loop through the required field array
-	foreach($required_fields as $name_of_field){
+	//call the function to check empty field and merge the return data into form_errors array
+	$form_errors = array_merge($form_errors, check_empty_fields($required_fields));
 
-		//echo $_POST[$name_of_field];
-		if(!isset($_POST[$name_of_field])  || $_POST[$name_of_field]== NULL) {
-			$form_errors[] = $name_of_field . " is a required field.";
-		}
-		
-	}
+	//fields that requires checking for minimum length
+	$field_to_check_length = array('username' => 4, 'password' => 6);
+
+	//call the function to check for minimum length
+	$form_errors = array_merge($form_errors, check_min_length($field_to_check_length));
+
+	//email validation / merge the return data into form_error array
+	$form_errors = array_merge($form_errors, check_email($_POST));
+	
 
 	//check if error array is empty, if yes, process form data and insert record
 	if(empty($form_errors)) {
@@ -42,12 +50,12 @@ if(isset($_POST['signupBtn'])) {
 			$statement->execute(array(':username' => $username, ':email' => $email, ':password' => $hashed_password));	
 			//check if one new row was created
 			if($statement->rowCount() == 1)	{
-				$result = "<p style = 'padding: 20px; color: green;'>Registration successful!</p>";
+				$result = "<p style = 'padding: 20px; border: 1px solid gray; color: green;'>Registration successful!</p>";
 			}	
 		
 		}catch (PDOException $ex){
 		
-			$result = "<p style = 'padding: 20px; color: red;'>An error occurred: ".$ex->getMessage()."</p>";
+			$result = "<p style = 'padding: 20px; border: 1px solid gray; color: red;'>An error occurred: ".$ex->getMessage()."</p>";
 
 		}
 
@@ -55,25 +63,8 @@ if(isset($_POST['signupBtn'])) {
 
 		if(count($form_errors) == 1){
 			$result = "<p style='color: red; '> There was an error in the form. <br>";
-			$result .= "<ul style='color: red;'>";
-			//loop through error array and display all items
-			foreach($form_errors as $error){
-				$result .= "<li> {$error} </li>";
-			}
-
-			$result .= "</ul></p>";
-
-
 		} else {
-
 			$result = "<p style='color: red; '> There were " . count($form_errors) . " errors in the form. <br>";
-			$result .= "<ul style='color: red;'>";
-			//loop through error array and display all items
-			foreach($form_errors as $error){
-				$result .= "<li> {$error} </li>";
-			}
-
-			$result .= "</ul></p>";
 		}
 	}
 }
@@ -92,9 +83,8 @@ if(isset($_POST['signupBtn'])) {
 <h2>User Authentication System </h2><hr>
 <h3>Registration Form</h3>
 
-<?php
-	if(isset($result)) echo $result;
-?>
+<?php if(isset($result)) echo $result; ?>
+<?php if(!empty($form_errors)) echo show_errors($form_errors); ?>
 
 <form method="post" action="">
 	<table>
