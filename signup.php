@@ -86,11 +86,11 @@ if(isset($_POST['signupBtn'])) {
 <?php if(isset($result)) echo $result; ?>
 <?php if(!empty($form_errors)) echo show_errors($form_errors); ?>
 
-<form method="post" action="">
+<form method="post" action="" autocomplete="off">
 	<table>
-		<tr><td>Email:</td><td><input type="email" value="" name="email"></input></td></tr>
-		<tr><td>Username:</td><td><input type="text" value="" name="username"></input></td></tr>
-		<tr><td>Password:</td><td><input type="password" value="" name="password"></input></td></tr>
+		<tr><td>Email:</td><td><input type="email" value="<?php if(isset($_POST['email'])) echo $_POST['email'] ?>" name="email"></input></td></tr>
+		<tr><td>Username:</td><td><input type="text" value="<?php if(isset($_POST['username'])) echo $_POST['username'] ?>" name="username" ></input></td></tr>
+		<tr><td>Password:</td><td><input type="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'] ?>" name="password"></input></td></tr>
 		<tr><td></td><td><input style="float:right;" type="submit" name="signupBtn" value="Signup"></input></td></tr>
 	</table>
 </form>

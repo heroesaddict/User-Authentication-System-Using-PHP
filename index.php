@@ -1,3 +1,5 @@
+
+<?php include_once 'resource/session.php'; ?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -11,8 +13,10 @@
 
 <?php include_once 'resource/Database.php' ?>
 
-<p>You are not currently sign in <a href="login.php">Login</a> Not yet a member?<a href="signup.php">Sign up</a></p>
-<p>You are logged in as {username} <a href="logout.php">Logout</a></p>
-
+<?php if(!isset($_SESSION['username'])) : ?>
+	<p>You are not currently sign in <a href="login.php">Login</a> Not yet a member?<a href="signup.php">Sign up</a></p>
+<?php else: ?>
+	<p>You are logged in as <?php if(isset($_SESSION['username'])) echo $_SESSION['username'] ?> <a href="logout.php">Logout</a></p>
+<?php endif ?>
 </body>
 </html>
