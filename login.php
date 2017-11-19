@@ -70,7 +70,7 @@ if(isset($_POST['loginBtn'])){
 	<table>
 		<tr><td>Username:</td><td><input type="text" value="" name="username"></input></td></tr>
 		<tr><td>Password:</td><td><input type="password" value="" name="password"></input></td></tr>
-		<tr><td></td><td><input style="float:right;" type="submit" name="loginBtn" value="Signin"></input></td></tr>
+		<tr><td><a style="float:left;" href="forgot_password.php">Forgot Password?</a></td><td><input style="float:right;" type="submit" name="loginBtn" value="Signin"></input></td></tr>
 	</table>
 </form>
 
