@@ -23,7 +23,12 @@ if(isset($_POST['loginBtn'])){
 		$sqlQuery = "SELECT * FROM users WHERE username = :username";
 		$statement = $db->prepare($sqlQuery);
 		$statement->execute(array(':username' => $user));
-
+		if($statement->rowCount() == 1)	{
+				
+		}else {
+			$result = flashMessage("Username is not in database. Please register...");
+			//redirectTo("signup");
+		}
 		while($row = $statement->fetch()){
 			$id = $row['id'];
 			$hashed_password = $row['password'];
@@ -34,7 +39,7 @@ if(isset($_POST['loginBtn'])){
 				$_SESSION['username'] = $username;
 				redirectTo("index");
 			}else{
-				$result = flashMessage("Invalid username or password.");
+				$result = flashMessage("Invalid password.");
 			}
 
 		}
@@ -52,29 +57,53 @@ if(isset($_POST['loginBtn'])){
 ?>
 
 
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Login Page</title>
-</head>
-<body>
+<?php
+	$page_title = "Login Page"; 
+	include_once "partials/headers.php";
+?>
 
-<h2>User Authentication System </h2><hr>
-<h3>Login Form</h3>
+<div class="container" >
+	<section class="col col-lg-7">
+		<h2>Login Form</h2>
 
-<?php if(isset($result)) echo $result ?>
-<?php if(!empty($form_errors)) echo show_errors($form_errors)?>
+		<pre>
+			<?php print_r($_POST); ?>
+		</pre>
 
-<form method="post" action="">
-	<table>
-		<tr><td>Username:</td><td><input type="text" value="" name="username"></input></td></tr>
-		<tr><td>Password:</td><td><input type="password" value="" name="password"></input></td></tr>
-		<tr><td><a style="float:left;" href="forgot_password.php">Forgot Password?</a></td><td><input style="float:right;" type="submit" name="loginBtn" value="Signin"></input></td></tr>
-	</table>
-</form>
+		<?php if(isset($result)) echo $result ?>
+		<?php if(!empty($form_errors)) echo show_errors($form_errors)?>
 
-<p><a href="index.php">Back to Homepage</a></p>
+		<form method="post" action="">
+		  <div class="form-group">
+		    <label for="usernameInput">Username</label>
+		    <input type="text" class="form-control" id="usernameInput" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username'] ?>" placeholder="Enter username">
+		  </div>
+		  <div class="form-group">
+		    <label for="passwordInput">Password</label>
+		    <input type="password" class="form-control" id="passwordInput" name="password" placeholder="Enter Password">
+		  </div>
+		  <div class="checkbox">
+		  	<label>
+		  		<input type="checkbox" name="remember">Remember Me
+		  	</label>
+		  	<button class="float-right" type="submit" class="btn btn-primary" name="loginBtn" value="Signin">Signin</button>
+		  </div>
+		  <div class="form-group">
+		  	<a class="float-left" href="forgot_password.php">Forgot Password?</a>
+		  </div>
+		</form>
+		<br>
+		<br>
 
-</body>
-</html>
+		<p><a href="index.php">Back to Homepage</a></p>
+
+		
+
+	</section>
+	
+</div> 
+
+
+<?php 
+	include_once "partials/footers.php";
+ ?>

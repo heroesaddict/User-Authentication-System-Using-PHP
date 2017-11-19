@@ -57,6 +57,9 @@ if(isset($_POST['signupBtn'])) {
 			//check if one new row was created
 			if($statement->rowCount() == 1)	{
 				$result = flashMessage("Registration successful!", "Pass");
+				//clear inputs
+				//use javascript
+			
 			}	
 		//ex. duplicate unique fields like username, email....
 		}catch (PDOException $ex){
@@ -78,34 +81,49 @@ if(isset($_POST['signupBtn'])) {
 ?>
 
 
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Register Page</title>
-</head>
-<body>
+<?php 
+	include_once "partials/headers.php";
+	$page_title = "Registration Page"; 
+ ?>
 
-<h2>User Authentication System </h2><hr>
-<h3>Registration Form</h3>
+ <div class="container">
+ 	<section class="col col-lg-7">
+ 		<h2>Registration Form</h2>
 
-<pre>
-	<?php print_r($_POST); ?>
-</pre>
+		<pre>
+			<?php print_r($_POST); ?>
+		</pre>
 
-<?php if(isset($result)) echo $result; ?>
-<?php if(!empty($form_errors)) echo show_errors($form_errors); ?>
+		<?php if(isset($result)) echo $result; ?>
+		<?php if(!empty($form_errors)) echo show_errors($form_errors); ?>
 
-<form method="post" action="" autocomplete="off">
-	<table>
-		<tr><td>Email:</td><td><input type="email" value="<?php if(isset($_POST['email'])) echo $_POST['email'] ?>" name="email"></input></td></tr>
-		<tr><td>Username:</td><td><input type="text" value="<?php if(isset($_POST['username'])) echo $_POST['username'] ?>" name="username" ></input></td></tr>
-		<tr><td>Password:</td><td><input type="password" value="<?php if(isset($_POST['password'])) echo $_POST['password'] ?>" name="password"></input></td></tr>
-		<tr><td></td><td><input style="float:right;" type="submit" name="signupBtn" value="Signup"></input></td></tr>
-	</table>
-</form>
+		<form method="post" action="">
+			<div class="form-group">
+		    <label for="usernameInput">Email Address</label>
+		    <input type="text" class="form-control" id="emailInput" name="email" value="<?php if(isset($_POST['email'])) echo $_POST['email'] ?>" aria-describedby="emailHelp" placeholder="Enter email">
+		    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+		  </div>
+		  <div class="form-group">
+		    <label for="usernameInput">Username</label>
+		    <input type="text" class="form-control" id="usernameInput" name="username" value="<?php if(isset($_POST['username'])) echo $_POST['username'] ?>" placeholder="Enter username">
+		  </div>
+		  <div class="form-group">
+		    <label for="passwordInput">Password</label>
+		    <input type="password" class="form-control" id="passwordInput" name="password" placeholder="Enter Password">
+		  </div>
+		  <button type="submit" class="btn btn-primary" name="signupBtn" value="Signin" >Register</button>
+		 </form>
 
-<p><a href="index.php">Back to Homepage</a></p>
+		<br><br>
+		<p><a href="index.php">Back to Homepage</a></p>
 
-</body>
-</html>
+ 	</section>
+ </div>
+
+
+
+
+
+<?php 
+	include_once "partials/footers.php";
+ ?>

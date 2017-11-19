@@ -39,7 +39,7 @@ if(isset($_POST['passwordResetBtn'])) {
 
 		//check if new password and confirm password is the same
 		if($new_password != $confirm_password) {
-			$result = "<p style='color: red; padding: 20px; border: 1px solid gray;'>New Password and Confirm Password doesn't match</p>";
+			$result = flashMessage("New Password and Confirm Password doesn't match.");
 		} else {
 			try{
 				//create SQL insert statement
@@ -64,9 +64,9 @@ if(isset($_POST['passwordResetBtn'])) {
 					//update database
 					$statement->execute(array(':password' => $hashed_password,':email' => $email));	
 
-					$result = "<p style = 'padding: 20px; border: 1px solid gray; color: green;'>Password reset successful!</p>";
+					$result = flashMessage("Password reset successful!", "Pass");
 				} else {
-					$result = "<p style = 'padding: 20px; border: 1px solid gray; color: red;'>The email address provided doesn't exist in the database. Please try again...</p>";
+					$result = flashMessage("The email address provided doesn't exist in the database. Please try again...");
 				}	
 		
 			}catch (PDOException $ex){
@@ -87,34 +87,49 @@ if(isset($_POST['passwordResetBtn'])) {
 ?>
 
 
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>Register Page</title>
-</head>
-<body>
+<?php 
+	include_once "partials/headers.php";
+	$page_title = "Registration Page"; 
+ ?>
 
-<h2>User Authentication System </h2><hr>
-<h3>Password Reset Form</h3>
+ <div class="container">
+ 	<section class="col col-lg-7">
 
-<pre>
-	<?php print_r($_POST); ?>
-</pre>
+		<h2>User Authentication System </h2><hr>
+		<h3>Password Reset Form</h3>
 
-<?php if(isset($result)) echo $result; ?>
-<?php if(!empty($form_errors)) echo show_errors($form_errors); ?>
+		<pre>
+			<?php print_r($_POST); ?>
+		</pre>
 
-<form method="post" action="" autocomplete="off">
-	<table>
-		<tr><td>Email:</td><td><input type="email" value="<?php if(isset($_POST['email'])) echo $_POST['email'] ?>" name="email"></input></td></tr>
-		<tr><td>New Password:</td><td><input type="password" value="<?php if(isset($_POST['new_password'])) echo $_POST['new_password'] ?>" name="new_password" ></input></td></tr>
-		<tr><td>Confirm Password:</td><td><input type="password" value="<?php if(isset($_POST['confirm_password'])) echo $_POST['confirm_password'] ?>" name="confirm_password"></input></td></tr>
-		<tr><td></td><td><input style="float:right;" type="submit" name="passwordResetBtn" value="Reset Password"></input></td></tr>
-	</table>
-</form>
+		<?php if(isset($result)) echo $result; ?>
+		<?php if(!empty($form_errors)) echo show_errors($form_errors); ?>
 
-<p><a href="index.php">Back to Homepage</a></p>
+		<form method="post" action="">
+			<div class="form-group">
+		    <label for="usernameInput">Email Address</label>
+		    <input type="text" class="form-control" id="emailInput" name="email" value="<?php if(isset($_POST['email'])) echo $_POST['email'] ?>" placeholder="Enter email">
+		  </div>
+		  <div class="form-group">
+		    <label for="newpasswordInput">New Password</label>
+		    <input type="password" class="form-control" id="newpasswordInput" value="<?php if(isset($_POST['new_password'])) echo $_POST['new_password'] ?>"name="new_password" placeholder="Enter new password">
+		  </div>
+		  <div class="form-group">
+		    <label for="confirm passwordInput">Confirm Password</label>
+		    <input type="password" class="form-control" id="confirmpasswordInput" value="<?php if(isset($_POST['confirm_password'])) echo $_POST['confirm_password'] ?>"name="confirm_password" placeholder="Enter Confirm Password">
+		  </div>
+		  <div class="form-group">
+		  	<button class="float-right" class="btn btn-primary" name="passwordResetBtn" type="submit" class="btn btn-primary" value="Reset Password">Reset Password</button>
+		  </div>
+		</form>
+		<br><br>
 
-</body>
-</html>
+		<p><a href="index.php">Back to Homepage</a></p>
+
+ 	</section>
+ </div>
+
+
+<?php 
+	include_once "partials/footers.php";
+ ?>
