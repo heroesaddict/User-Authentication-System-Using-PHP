@@ -1,9 +1,10 @@
 <?php 
 
 include_once 'resource/session.php'; 
-session_destroy();
-header('location: index.php');
+include_once 'resource/utilities.php';
 
+session_destroy();
+redirectTo("index");
 
 
 

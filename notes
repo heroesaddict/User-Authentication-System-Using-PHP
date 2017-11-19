@@ -1,0 +1,62 @@
+NOTES:
+
+forgot_password.php
+flow:
+
+Check if reset password button is clicked
+true:
+	check for all errors and store in an array
+	//initialize an array to store any error message from the form
+	//form validation / whitelisting the fields
+	//call the function to check empty field and merge the return data into form_errors array
+	//provide the fields that requires checking for minimum length
+	//call the function to check for minimum length
+	//email validation / merge the return data into form_error array
+
+	check if error array is empty
+	true:
+		//collect form data
+
+		//check if new password and confirm password is the same
+		true:
+			check if database query execute successfully (try..catch())
+			true:
+			//create SQL insert statement
+			//used PDO prepare to sanitize data
+			//execute query
+
+			//check if one new row was created
+			true:
+				//hashing the password
+				//sql statement to update password
+				//used PDO prepare to sanitize data
+				//update database
+				display Password reset successful!
+
+			false:
+				display "The email address provided doesn't exist in the database. Please try again...""
+
+
+			false:
+				display "Error connecting database"
+
+
+		false:
+		display passwords doesn't match
+
+
+
+	false:
+		check if error is 1 only
+		true:
+	 		display the error
+	 	false:
+			display all the errors
+
+
+
+
+false: do nothing
+
+
+

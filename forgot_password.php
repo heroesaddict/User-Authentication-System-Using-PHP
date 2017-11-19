@@ -32,7 +32,7 @@ if(isset($_POST['passwordResetBtn'])) {
 
 	//check if error array is empty, if yes, process form data and insert record
 	if(empty($form_errors)) {
-
+		//collect form data
 		$email = $_POST['email'];
 		$new_password = $_POST['new_password'];
 		$confirm_password = $_POST['confirm_password'];

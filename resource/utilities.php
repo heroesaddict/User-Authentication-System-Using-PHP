@@ -74,10 +74,38 @@ function show_errors($form_errors_array){
 }
 
 
+function flashMessage($message, $PassorFail = "Fail"){
+	if($PassorFail === "Pass"){
+		$data = "<p style = 'padding: 20px; border: 1px solid gray; color: green;'>{$message}</p>";
+	} else {
+		$data = "<p style = 'padding: 20px; border: 1px solid gray; color: red;'>{$message}</p>";
+	}
+	return $data;
+}
 
 
+function redirectTo($page){
+	header("Location: {$page}.php"); //or header("Location: " .$page. ".php");
+}
 
 
+function checkDuplicateEntries($tableName, $columnName, $value, $db){
+	try {
+		//$sqlQuery = "SELECT * FROM users WHERE username = :username";
+		$sqlQuery = "SELECT " .$columnName. " FROM " .$tableName. " WHERE " .$columnName. "=:" .$columnName;
+		$statement = $db->prepare($sqlQuery);
+		$statement->execute(array(':' .$columnName => $value));
+
+		if($row = $statement->fetch()){
+			return true;
+		}
+		return false;
+	
+	}catch (PDOException $Ex) {
+
+	}
+
+}
 
 
 

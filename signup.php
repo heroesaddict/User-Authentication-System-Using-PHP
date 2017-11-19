@@ -10,7 +10,6 @@ include_once 'resource/utilities.php';
 //process the form
 if(isset($_POST['signupBtn'])) {
 
-
 	//initialize an array to store any error message from the form
 	$form_errors = array();
 
@@ -28,15 +27,22 @@ if(isset($_POST['signupBtn'])) {
 
 	//email validation / merge the return data into form_error array
 	$form_errors = array_merge($form_errors, check_email($_POST));
-	
+
+	//collect form data
+	$email = $_POST['email'];
+	$username = $_POST['username'];
+	$password = $_POST['password'];
+
+
+	if(checkDuplicateEntries('users', 'username', $username, $db)){
+		$result = flashMessage('Username already exist.');
+
+	}else if(checkDuplicateEntries('users', 'email', $email, $db)){
+		$result = flashMessage('Email already exist.');
 
 	//check if error array is empty, if yes, process form data and insert record
-	if(empty($form_errors)) {
-
-		$email = $_POST['email'];
-		$username = $_POST['username'];
-		$password = $_POST['password'];
-
+	} else if(empty($form_errors)) {
+		
 		//hashing the password
 		$hashed_password = password_hash($password, PASSWORD_DEFAULT);
 		
@@ -50,21 +56,21 @@ if(isset($_POST['signupBtn'])) {
 			$statement->execute(array(':username' => $username, ':email' => $email, ':password' => $hashed_password));	
 			//check if one new row was created
 			if($statement->rowCount() == 1)	{
-				$result = "<p style = 'padding: 20px; border: 1px solid gray; color: green;'>Registration successful!</p>";
+				$result = flashMessage("Registration successful!", "Pass");
 			}	
-		
+		//ex. duplicate unique fields like username, email....
 		}catch (PDOException $ex){
 		
-			$result = "<p style = 'padding: 20px; border: 1px solid gray; color: red;'>An error occurred: ".$ex->getMessage()."</p>";
+			$result = flashMessage("An error occurred: " . $ex->getMessage());
 
 		}
 
 	} else {
 
 		if(count($form_errors) == 1){
-			$result = "<p style='color: red; '> There was an error in the form. <br>";
+			$result = flashMessage("There was an error in the form.");
 		} else {
-			$result = "<p style='color: red; '> There were " . count($form_errors) . " errors in the form. <br>";
+			$result = flashMessage("There were " . count($form_errors) . " errors in the form. ");
 		}
 	}
 }
@@ -82,6 +88,10 @@ if(isset($_POST['signupBtn'])) {
 
 <h2>User Authentication System </h2><hr>
 <h3>Registration Form</h3>
+
+<pre>
+	<?php print_r($_POST); ?>
+</pre>
 
 <?php if(isset($result)) echo $result; ?>
 <?php if(!empty($form_errors)) echo show_errors($form_errors); ?>
