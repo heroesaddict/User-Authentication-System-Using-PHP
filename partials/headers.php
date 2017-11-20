@@ -10,6 +10,7 @@
      <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <link href="./css/custom.css" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title><?php if(isset($page_title)) echo $page_title; ?></title>
 </head>
 <body>
@@ -21,33 +22,33 @@
 
     <div class="collapse navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item ">
           <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
         </li>
         <?php if(!isset($_SESSION['username'])) : ?>
 
-        <li class="nav-item ">
-          <a class="nav-link" href="about.php">About <span class="sr-only">(current)</span></a>
-        </li> 
-        <li class="nav-item ">
-          <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="signup.php">Signup <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="contact.php">Contact <span class="sr-only">(current)</span></a>
-        </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="about.php">About <span class="sr-only">(current)</span></a>
+          </li> 
+          <li class="nav-item ">
+            <a class="nav-link" href="login.php">Login <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="signup.php">Signup <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="contact.php">Contact <span class="sr-only">(current)</span></a>
+          </li>
        
         <?php else: ?>
 
-        <li class="nav-item ">
-          <a class="nav-link" href="profile.php">My Profile <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
-        </li>
-      
+          <li class="nav-item ">
+            <a class="nav-link" href="profile.php">My Profile <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
+          </li>
+        
         <?php endif ?>
 
          
