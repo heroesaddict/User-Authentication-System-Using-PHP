@@ -1,6 +1,5 @@
 <?php 
 
-include_once 'resource/Database.php';
 include_once 'resource/utilities.php';
 
 if(isset($_POST['loginBtn'])){
@@ -43,8 +42,8 @@ if(isset($_POST['loginBtn'])){
 							  title: \"Welcome back $user \",
 							  text: \"You are now login!\",
 							  icon: \"success\",
-							  timer: 4000
-							  showConfirmationButton: false;
+							  timer: 4000,
+							  showConfirmationButton: false,
 							});
 							
 							setTimeout(function(){
