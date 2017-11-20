@@ -65,11 +65,6 @@ if(isset($_POST['loginBtn'])){
 <div class="container" >
 	<section class="col col-lg-7">
 		<h2>Login Form</h2>
-
-		<pre>
-			<?php print_r($_POST); ?>
-		</pre>
-
 		<?php if(isset($result)) echo $result ?>
 		<?php if(!empty($form_errors)) echo show_errors($form_errors)?>
 

@@ -89,7 +89,7 @@ if(isset($_POST['passwordResetBtn'])) {
 
 <?php 
 	include_once "partials/headers.php";
-	$page_title = "Registration Page"; 
+	$page_title = "Reset Password Page"; 
  ?>
 
  <div class="container">
@@ -97,10 +97,6 @@ if(isset($_POST['passwordResetBtn'])) {
 
 		<h2>User Authentication System </h2><hr>
 		<h3>Password Reset Form</h3>
-
-		<pre>
-			<?php print_r($_POST); ?>
-		</pre>
 
 		<?php if(isset($result)) echo $result; ?>
 		<?php if(!empty($form_errors)) echo show_errors($form_errors); ?>

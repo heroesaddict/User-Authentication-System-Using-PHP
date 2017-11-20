@@ -89,10 +89,10 @@ if(isset($_POST['signupBtn'])) {
  <div class="container">
  	<section class="col col-lg-7">
  		<h2>Registration Form</h2>
-
+<!-- 
 		<pre>
 			<?php print_r($_POST); ?>
-		</pre>
+		</pre> -->
 
 		<?php if(isset($result)) echo $result; ?>
 		<?php if(!empty($form_errors)) echo show_errors($form_errors); ?>

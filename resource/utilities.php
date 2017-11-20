@@ -63,22 +63,22 @@ function check_email($data){
 
 function show_errors($form_errors_array){
 
-	$errors = "<p><ul style='color: red;'>";
+	$errors = "<div class = 'alert alert-danger'><ul style='color: red;'>";
 
 	//loop through error array and display all items in a list
 	foreach ($form_errors_array as $the_error) {
 		$errors .= "<li> {$the_error} </li>";
 	}
-	$errors .= "</ul></p>";
+	$errors .= "</ul></div>";
 	return $errors;
 }
 
 
 function flashMessage($message, $PassorFail = "Fail"){
 	if($PassorFail === "Pass"){
-		$data = "<p style = 'padding: 20px; border: 1px solid gray; color: green;'>{$message}</p>";
+		$data = "<div class = 'alert alert-success'>{$message}</div>";
 	} else {
-		$data = "<p style = 'padding: 20px; border: 1px solid gray; color: red;'>{$message}</p>";
+		$data = "<div class = 'alert alert-danger'>{$message}</div>";
 	}
 	return $data;
 }
