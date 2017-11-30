@@ -1,6 +1,5 @@
 <?php 
 
-include_once 'resource/utilities.php';
 
 if(isset($_POST['loginBtn'])){
 	//array to hold errors
@@ -17,6 +16,8 @@ if(isset($_POST['loginBtn'])){
 		$user = $_POST['username'];
 		$password = $_POST['password'];
 
+		isset($_POST['remember']) ? $remember = $_POST['remember'] : $remember = "";
+
 		//check if user exist in database
 		$sqlQuery = "SELECT * FROM users WHERE username = :username";
 		$statement = $db->prepare($sqlQuery);
@@ -31,6 +32,13 @@ if(isset($_POST['loginBtn'])){
 			$id = $row['id'];
 			$hashed_password = $row['password'];
 			$username = $row['username'];
+
+			if($remember === "yes") {
+
+				rememberMe($id);
+
+			}
+
 
 			if(password_verify($password, $hashed_password)){
 				$_SESSION['id'] = $id;

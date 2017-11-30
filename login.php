@@ -22,7 +22,7 @@
 		  </div>
 		  <div class="checkbox">
 		  	<label>
-		  		<input type="checkbox" name="remember">Remember Me
+		  		<input type="checkbox" value= "yes" name="remember">Remember Me
 		  	</label>
 		  	<button class="float-right" type="submit" class="btn btn-primary" name="loginBtn" value="Signin">Signin</button>
 		  </div>

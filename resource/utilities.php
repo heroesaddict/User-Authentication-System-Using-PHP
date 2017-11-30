@@ -107,7 +107,64 @@ function checkDuplicateEntries($tableName, $columnName, $value, $db){
 
 }
 
+function rememberMe($user_id) {
+	$encryptCookieData = base64_encode("revilomik{$user_id}");
+	//cookie set to expire in 30 days
+	setcookie("rememberUserCookie", $encryptCookieData, time()+60*60*24*100, "/");
+}
 
+function isCookieValid($db) {
+	$isValid = false;
+
+	if(isset($_COOKIE['rememberUserCookie'])){
+		//decode cookie and extract use_id
+		$decryptCookieData = base64_decode($_COOKIE['rememberUserCookie']);
+		$user_id = explode("revilomik", $decryptCookieData);
+		$userID = $user_id[1];
+
+		//check if user_id retrieved from the cookie exist in the database
+		$sqlQuery = "SELECT * FROM users WHERE id = :id";
+		$statement = $db->prepare($sqlQuery);
+		$statement->execute(array(':id' => $userID));
+
+		if($row = $statement->fetch()) {
+			$id = $row['id'];
+			$username = $row['username'];
+
+			//create the user session variable
+			$_SESSION['id'] =$id;
+			$_SESSION['username'] =$username;
+			$isValid = true;
+
+		}else{
+			//cookie id is invalid so destroy session and logout user
+			$isValid = false;
+			signout();
+
+		}
+
+
+	}
+	return $isValid;
+}
+
+
+function signout() {
+	unset($_SESSION['username']);
+	unset($_SESSION['id']);
+
+	//destroy cookies
+	// if(isset($_COOKIE['rememberUserCookie'])) {
+	// 	unset($_COOKIE['rememberUserCookie']);
+
+	// 	setcookie('rememberUserCookie', null, -1, '/');
+	// }
+
+	session_destroy();
+	session_regenerate_id(true);
+	redirectTo('index');
+
+}
 
 
  ?>

@@ -1,5 +1,8 @@
 <?php include_once 'resource/session.php'; ?>
 <?php include_once 'resource/Database.php' ?>
+<?php include_once 'resource/utilities.php' ?>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +28,16 @@
         <li class="nav-item ">
           <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
         </li>
-        <?php if(!isset($_SESSION['username'])) : ?>
+        <?php if((isset($_SESSION['username']) || isCookieValid($db))): ?>
+            
+           <li class="nav-item ">
+            <a class="nav-link" href="profile.php">My Profile <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
+          </li>
+       
+        <?php else: ?>
 
           <li class="nav-item ">
             <a class="nav-link" href="about.php">About <span class="sr-only">(current)</span></a>
@@ -38,15 +50,6 @@
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="contact.php">Contact <span class="sr-only">(current)</span></a>
-          </li>
-       
-        <?php else: ?>
-
-          <li class="nav-item ">
-            <a class="nav-link" href="profile.php">My Profile <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="logout.php">Logout <span class="sr-only">(current)</span></a>
           </li>
         
         <?php endif ?>
