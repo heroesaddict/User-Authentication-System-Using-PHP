@@ -153,17 +153,44 @@ function signout() {
 	unset($_SESSION['username']);
 	unset($_SESSION['id']);
 
-	//destroy cookies
-	// if(isset($_COOKIE['rememberUserCookie'])) {
-	// 	unset($_COOKIE['rememberUserCookie']);
+	//destroy cookies.. if not implemented, it keeps user logged in
+	if(isset($_COOKIE['rememberUserCookie'])) {
+		unset($_COOKIE['rememberUserCookie']);
 
-	// 	setcookie('rememberUserCookie', null, -1, '/');
-	// }
+		setcookie('rememberUserCookie', null, -1, '/');
+	}
 
 	session_destroy();
 	session_regenerate_id(true);
 	redirectTo('index');
 
+}
+
+
+//check if user is inactive for certain time
+function guard() {
+	$isValid = true;
+	$inactive = 60*1; // 60 sec 60*2; // 2 mins
+
+	//$_SERVER['REMOTE_ADDR'] > get IP address, $_SERVER['HTTP_USER_AGENT'] > get browser details
+	//encrypt md5
+	$fingerprint = md5($_SERVER['REMOTE_ADDR'] . $_SERVER['HTTP_USER_AGENT']);
+
+	//compare SESSION fingerprint and fingerprint
+	if((isset($_SESSION['fingerprint']) && $_SESSION['fingerprint'] != $fingerprint)) {
+		$isValid =false;
+		signout();
+
+	}else if(isset($_SESSION['last active']) && time() - $_SESSION['last active'] > $inactive && $_SESSION['username']) {
+		$isValid - false;
+		signout();
+
+	}else {
+		$_SESSION['last active'] = time();
+		
+	}
+
+	return $isValid;
 }
 
 

@@ -15,6 +15,8 @@
 	  	<?php endif ?>
 
       </div>
+
+    <!--   <?php echo $_SERVER['REMOTE_ADDR'] . "<br>" . $_SERVER['HTTP_USER_AGENT'] ?> -->
       
     </main><!-- /.container -->
 <?php 
