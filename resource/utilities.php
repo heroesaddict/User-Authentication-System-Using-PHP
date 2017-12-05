@@ -170,7 +170,7 @@ function signout() {
 //check if user is inactive for certain time
 function guard() {
 	$isValid = true;
-	$inactive = 60*2; //  2 mins
+	$inactive = 60*10; //  10 mins
 
 	//$_SERVER['REMOTE_ADDR'] > get IP address, $_SERVER['HTTP_USER_AGENT'] > get browser details
 	//encrypt md5
