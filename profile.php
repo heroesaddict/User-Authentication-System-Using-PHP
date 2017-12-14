@@ -11,6 +11,10 @@
 	  	<?php else: ?>
 
 			   <section class="col col-lg-7">
+          <div class="row col-lg-3" style="margin-bottom:20px;">
+            <img src="<?php if(isset($profile_picture)) echo $profile_picture?>" class="img img-rounded" width = "250" height = "250">
+            
+          </div>
             <table class="table table-bordered table-condensed">
               <tr><th style="width: 20%; ">Username:</th><td><?php if(isset($username)) echo $username ?></td></tr>
                <tr><th>Email:</th><td><?php if(isset($email)) echo $email ?></td></tr>
