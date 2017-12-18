@@ -223,4 +223,29 @@ function isValidImage($file){
 
 }
 
+function uploadAvatar($username){
+
+	$isImageMoved = false;
+
+	if($_FILES['avatar']['tmp_name']){
+
+		//file in temporary location
+		$temp_file = $_FILES['avatar']['tmp_name'];  //temp_file C:\wamp64\tmp\phpBA32.tmp
+
+		echo "temp_file ".$temp_file."<br>";
+		$ds = DIRECTORY_SEPARATOR; //  '/'
+		$avatar_name = $username.".jpg";
+
+		$path = "uploads".$ds.$avatar_name; //uploads/username.jpg
+		echo "path ".$path."<br>";
+
+		if(move_uploaded_file($temp_file, $path)){
+			$isImageMoved = true;
+		}
+
+	}
+
+	return $isImageMoved;
+}
+
  ?>

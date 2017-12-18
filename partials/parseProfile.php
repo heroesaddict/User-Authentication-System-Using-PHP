@@ -80,7 +80,7 @@ if((isset($_SESSION['id']) || isset($_GET['user_identity'])) && !isset($_POST['u
 			$statement->execute(array(':username' => $username, ':email' => $email, ':id' => $hidden_id));
 
 			//check if one row was created
-			if($statement->rowCount() == 1){
+			if($statement->rowCount() == 1 || uploadAvatar($username)){
 				$result = "<script type=\"text/javascript\"> 
 				swal(\"Updated!\", \"Profile updated successfully.\", \"success\");</script>";
 			}else {
