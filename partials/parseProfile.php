@@ -55,6 +55,14 @@ if((isset($_SESSION['id']) || isset($_GET['user_identity'])) && !isset($_POST['u
 	//email validation / merge the return data into form_error array
 	$form_errors = array_merge($form_errors, check_email($_POST));
 
+	//validate if upload file has a valid extension
+	isset($_FILES['avatar']['name']) ? $avatar = $_FILES['avatar']['name'] : $avatar = null;
+
+	if($avatar !=null) {
+		$form_errors = array_merge($form_errors, isValidImage($avatar));
+	}
+
+
 	//collect form data
 	$email = $_POST['email'];
 	$username = $_POST['username'];

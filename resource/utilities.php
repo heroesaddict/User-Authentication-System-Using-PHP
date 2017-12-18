@@ -194,4 +194,33 @@ function guard() {
 }
 
 
+function isValidImage($file){
+	$form_errors = array();
+
+	//split filename into an array using the dot(.)
+	$part = explode(".", $file);
+	//targetting the last element in the array
+	$extension = end($part);
+
+	switch (strtolower($extension)) {
+		case 'jpg':
+
+		case 'gif':
+
+		case 'bmp':
+
+		case 'png':
+
+
+
+		return $form_errors;
+
+	}
+
+	$form_errors[] = $extension . " is not a valid image extension";
+
+	return $form_errors;
+
+}
+
  ?>

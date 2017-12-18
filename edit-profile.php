@@ -19,7 +19,7 @@
 
 		<?php else: ?>
 
-			<form method="post" action="">
+			<form method="post" action="" enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="emailField">Email</label>
 					<input type="text" name="email" class="form-control" id="emailField" value="<?php if(isset($email)) echo $email; ?>">
@@ -28,6 +28,11 @@
 				<div class="form-group">
 					<label for="usernameField">Username</label>
 					<input type="text" name="username" class="form-control" id="usernameField" value="<?php if(isset($username)) echo $username; ?>">
+				</div>
+
+				<div class="form-group">
+					<label for="fileField">Avatar</label><br>
+					<input type="file" name="avatar" id="fileField" >
 				</div>
 
 				<input type="hidden" name="hidden_id" value="<?php if(isset($id)) echo $id; ?>">
